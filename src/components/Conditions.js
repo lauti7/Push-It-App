@@ -10,27 +10,32 @@ import BrowserCondition from './BrowserCondition'
 
 
 
-const Condition = ({field, id}) => {
+const Condition = ({field, id, conditionIdx}) => {
 
   useEffect(() => {
     console.log('Mounted Condition');
   }, [])
 
+  console.log(field);
+  console.log(id);
+  console.log(conditionIdx);
+
+
   switch (field) {
     case 'optInDate':
-      return (<OptInCondition id={id} />)
+      return (<OptInCondition id={id}  conditionIdx={conditionIdx}/>)
     case 'lastSession':
-      return (<LastSessionCondition id={id}  />)
-    case 'sessionCount':
-      return (<SessionCountCondition id={id} />)
+      return (<LastSessionCondition id={id} conditionIdx={conditionIdx} />)
+    case 'sessionsCount':
+      return (<SessionCountCondition id={id} conditionIdx={conditionIdx} />)
     case 'lang':
-      return (<LanguageCondition id={id}  />)
+      return (<LanguageCondition id={id} conditionIdx={conditionIdx} />)
     case 'country':
-      return (<CountryCondition id={id} />)
+      return (<CountryCondition id={id} conditionIdx={conditionIdx} />)
     case 'os':
-      return (<OSCondition id={id}  />)
+      return (<OSCondition id={id}  conditionIdx={conditionIdx} />)
     case 'browser':
-      return (<BrowserCondition id={id}  />)
+      return (<BrowserCondition id={id} conditionIdx={conditionIdx} />)
 
   }
 

@@ -4,13 +4,14 @@ import {useAuth} from '../auth'
 import EqualOperators from './EqualOperators'
 import ValueInput from './ValueInput'
 
-const CountryCondition = ({id}) => {
+const CountryCondition = ({id, conditionIdx}) => {
 
   const {state, dispatch} = useAuth()
 
   const handleCountry = e => {
     dispatch({
       type: 'SAVECONDITION',
+      conditionIdx,
       condition: {id, value: e.target.value}
     })
   }
@@ -20,9 +21,9 @@ const CountryCondition = ({id}) => {
       <Row>
         <Col md={12}>
           <div className="d-flex justify-content-around mt-2">
-            <div style={{backgroundColor: 'rgba(0, 241, 3, 0.25)', color:'rgba(10, 10, 10, 0.71)', padding: '5px', borderRadius: '5px' }}>Country</div>
-            <EqualOperators id={id} />
-            <Input type="select" onChange={(e) => handleCountry(e)}>
+            <div className='text-center' style={{width:'140px',backgroundColor: 'rgba(0, 241, 3, 0.25)', color:'rgba(10, 10, 10, 0.71)', padding: '5px', borderRadius: '5px' }}>Country</div>
+            <EqualOperators id={id} conditionIdx={conditionIdx}/>
+            <Input className="flex-grow-1" type="select" onChange={(e) => handleCountry(e)}>
             <option value="Afghanistan">Afghanistan</option>
               <option value="Åland Islands">Åland Islands</option>
               <option value="Albania">Albania</option>

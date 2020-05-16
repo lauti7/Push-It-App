@@ -29,6 +29,10 @@ const MyApps = (props) => {
     .catch(e => console.log(e))
   }, [])
 
+  const handlePreview = (app) => {
+    console.log(app);
+  }
+
   return (
     <Container>
       <h1 className="mt-3">All Applications</h1>
@@ -48,9 +52,8 @@ const MyApps = (props) => {
              <thead>
                <tr>
                  <th className="text-center">NAME</th>
-                 <th className="text-center">TOTAL USERS</th>
-                 <th className="text-center">TOTAL USERS PER DAY</th>
-                 <th className="text-center">SUBSCRIBED USERS</th>
+                 <th className="text-center">SITE URL</th>
+                 <th className="text-center">WELCOME NOTIFICATION</th>
                  <th className="text-center">ACTIONS</th>
                </tr>
              </thead>
@@ -58,10 +61,17 @@ const MyApps = (props) => {
               {
                   myApps.map(app => (
                     <tr key={app._id}>
-                      <td className="text-center">{app.name}</td>
-                      <td className="text-center">50</td>
-                      <td className="text-center">5</td>
-                      <td className="text-center">40</td>
+                      <td className="text-center" ><p style={{padding:'6px 12px', margin: 0}}>{app.name}</p></td>
+                      <td className="text-center"><p style={{padding:'6px 12px', margin: 0}}>{app.siteUrl}</p></td>
+                      <td className="text-center">
+                        {
+                          app.welcomeNotification ?
+                            <>
+                            <Button color="link" onClick={() => handlePreview(app.welcomeNotification)}>PREVIEW</Button>
+                            </>
+                          : 'NO'
+                        }
+                      </td>
                       <td className="text-center">
                         <OptionsDropdown type="app" appId={app._id}/>
                       </td>

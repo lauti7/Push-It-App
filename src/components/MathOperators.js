@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Input} from 'reactstrap'
 import {useAuth} from '../auth'
 
-const MathOperators = ({id}) => {
+const MathOperators = ({id, conditionIdx}) => {
 
   const {state, dispatch} = useAuth()
 
@@ -15,13 +15,14 @@ const MathOperators = ({id}) => {
   useEffect(() => {
     dispatch({
       type: 'SAVECONDITION',
+      conditionIdx,
       condition: {id, operator}
     })
   }, [operator])
 
   return (
     <>
-      <div style={{maxWidth: '30%'}} className="mx-2">
+      <div className="mx-2">
         <Input type="select" name="operator" onChange={(e) => handleOperator(e) }>
           <option value="lte">More than</option>
           <option value="gte">Less than</option>

@@ -4,7 +4,7 @@ import {useAuth} from '../auth'
 import EqualOperators from './EqualOperators'
 import ValueInput from './ValueInput'
 
-const OSCondition = ({id}) => {
+const OSCondition = ({id, conditionIdx}) => {
 
   const {state, dispatch} = useAuth()
 
@@ -13,6 +13,7 @@ const OSCondition = ({id}) => {
   const handleOs = e => {
     dispatch({
       type: 'SAVECONDITION',
+      conditionIdx,
       condition: {id, value: e.target.value}
     })
   }
@@ -32,11 +33,11 @@ const OSCondition = ({id}) => {
       <Row>
         <Col md={12}>
           <div className="d-flex justify-content-around mt-2">
-            <div style={{backgroundColor: 'rgba(0, 241, 3, 0.25)', color:'rgba(10, 10, 10, 0.71)', padding: '5px', borderRadius: '5px' }}>OS</div>
-            <EqualOperators id={id} />
+            <div className='text-center' style={{width:'140px',backgroundColor: 'rgba(0, 241, 3, 0.25)', color:'rgba(10, 10, 10, 0.71)', padding: '5px', borderRadius: '5px' }}>OS</div>
+            <EqualOperators id={id} conditionIdx={conditionIdx} />
             {
               (oss.length > 0) ?
-                <Input type="select" onChange={(e) => handleOs(e)}>
+                <Input className="flex-grow-1" type="select" onChange={(e) => handleOs(e)}>
                   {
                     oss.map((os, idx) => {
                       return (

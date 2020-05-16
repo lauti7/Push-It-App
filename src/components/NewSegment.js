@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {Container, Row, Col, Table, Button, Card, CardHeader, CardBody, FormGroup, Input, Label, ListGroup, ListGroupItem} from 'reactstrap';
 import {useAuth} from '../auth'
 import Condition from './Conditions'
+import AddAnOr from './AddAnOr'
+import AddConditionButton from './AddConditionButton'
 import uuid from 'react-uuid'
 
 
@@ -9,21 +11,11 @@ const NewSegment = props => {
 
   const {state, dispatch} = useAuth()
 
-  const [added, setAdd] = useState([])
   const [name, setName] = useState('')
 
 
   const appId = props.match.params._id
   // console.log(appId);
-
-  const add = (kind) => {
-    setAdd([...added, kind])
-    dispatch({
-      type: 'SAVECONDITION',
-      condition: {id: kind.id, field: kind.kind, operator: '', value: '', type: kind.type}
-    })
-    console.log(state.conditions);
-  }
 
   const saveSegment = () => {
     console.log('Save segment');
@@ -49,6 +41,7 @@ const NewSegment = props => {
   }, [])
 
 
+  console.log();
 
 
 
@@ -69,19 +62,38 @@ const NewSegment = props => {
             <Row>
               <Col md={3}>
                 <ListGroup>
-                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Opt In Date</p> <span><Button size="sm" style={{backgroundColor: '#00bf8c'}} onClick={() => add({kind: 'optInDate', id: uuid(), type: 'date'})}>Add</Button></span></ListGroupItem>
-                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Last Session</p> <span><Button size="sm" style={{backgroundColor: '#00bf8c'}} onClick={() => add({kind: 'lastSession', id: uuid(), type: 'date'})}>Add</Button></span></ListGroupItem>
-                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Sessions Count</p> <span><Button size="sm" style={{backgroundColor: '#00bf8c'}} onClick={() => add({kind: 'sessionsCount', id: uuid(), type: 'number'})}>Add</Button></span></ListGroupItem>
-                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Language</p> <span><Button size="sm" style={{backgroundColor: '#00bf8c'}} onClick={() => add({kind: 'lang', id: uuid(), type: 'string'})}>Add</Button></span></ListGroupItem>
-                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Country</p> <span><Button size="sm" style={{backgroundColor: '#00bf8c'}} onClick={() => add({kind: 'country', id: uuid(), type: 'string'})}>Add</Button></span></ListGroupItem>
-                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Operative System</p> <span><Button size="sm" style={{backgroundColor: '#00bf8c'}} onClick={() => add({kind: 'os', id: uuid(), type: 'string'})}>Add</Button></span></ListGroupItem>
-                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Browser</p> <span><Button size="sm" style={{backgroundColor: '#00bf8c'}} onClick={() => add({kind: 'browser', id: uuid(), type: 'string'})}>Add</Button></span></ListGroupItem>
+                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Opt In Date</p> <AddConditionButton conditionType={{kind: 'optInDate', id: uuid(), type: 'date'}}/></ListGroupItem>
+                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Last Session</p> <AddConditionButton conditionType={{kind: 'lastSession', id: uuid(), type: 'date'}}/></ListGroupItem>
+                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Sessions Count</p> <AddConditionButton conditionType={{kind: 'sessionsCount', id: uuid(), type: 'number'}}/></ListGroupItem>
+                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Language</p> <AddConditionButton conditionType={{kind: 'lang', id: uuid(), type: 'string'}}/></ListGroupItem>
+                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Country</p> <AddConditionButton conditionType={{kind: 'country', id: uuid(), type: 'string'}}/></ListGroupItem>
+                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Operative System</p><AddConditionButton conditionType={{kind: 'os', id: uuid(), type: 'string'}}/> </ListGroupItem>
+                  <ListGroupItem className="d-flex flex-row justify-content-between align-items-center"><p style={{padding: 0, margin: 0}}>Browser</p> <AddConditionButton conditionType={{kind: 'browser', id: uuid(), type: 'string'}}/></ListGroupItem>
                 </ListGroup>
               </Col>
               <Col md={9}>
                 {
-                  state?.conditions?.map(condition => (<Condition field={condition.field} id={condition.id} key={condition.id}  />))
+                    (state?.conditions?.length > 0 && state.conditions[0].length) ?
+                      <>
+                        {
+                          state.conditions.map((condition, idx) => (
+                            <>
+                              <h4 style={{paddingLeft: '15px'}} className="mt-2">{idx + 1} Set</h4>
+                              {
+                                [...condition].map(c => (
+                                  <Condition field={c.field} id={c.id} key={c.id} conditionIdx={idx}  />
+                                ))
+                              }
+                            </>
+                          ))
+                        }
+                        <AddAnOr />
+                      </>
+                    :
+                    <p className="text-center mt-2" style={{fontWeight: 'bold'}}>Start creating a new segment</p>
+
                 }
+
               </Col>
             </Row>
             <Row>

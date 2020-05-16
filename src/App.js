@@ -63,30 +63,46 @@ function reducer(state, action) {
     case 'INITNEWSEGMENT':
       return {
         ...state,
-        conditions: []
+        addedOr: false,
+        orCount: 0,
+        conditions: [[]]
       }
-    case 'SAVECONDITION':
-      console.log('Save Condition');
-      console.log(action.condition);
-
-      let foundIdx = [...state.conditions].findIndex(c => c.id === action.condition.id)
-      if (foundIdx !== -1) {
-        let conditions = [...state.conditions]
-        if (action.condition.operator) {
-          conditions.splice(foundIdx, 1, {...conditions[foundIdx], operator:action.condition.operator })
-        } else if(action.condition.value){
-          conditions.splice(foundIdx, 1, {...conditions[foundIdx], value:action.condition.value })
-        }
-        return {
-          ...state,
-          conditions: [...conditions]
-        }
-
-      }
+    case 'ADD_OR':
       return {
         ...state,
-        conditions: [...state.conditions, action.condition]
+        addedOr: true,
+        orCount: state.orCount + 1,
+        conditions: [...state.conditions, []]
       }
+    case 'SAVECONDITION':
+      console.log(action);
+      let stateConditions = [...state.conditions]
+      const idx = stateConditions[action.conditionIdx].findIndex(c => c.id === action.condition.id)
+      console.log(idx);
+      if (idx !== -1 && idx !== null) {
+        let conditions = [...state.conditions[action.conditionIdx]]
+        if (action.condition.operator) {
+          conditions.splice(idx, 1, {...conditions[idx], operator:action.condition.operator })
+        } else if(action.condition.value){
+          conditions.splice(idx, 1, {...conditions[idx], value:action.condition.value })
+        }
+        let newConditions = [...state.conditions]
+        newConditions.splice(action.conditionIdx, 1, conditions)
+        return {
+          ...state,
+          conditions: [...newConditions]
+        }
+      }
+      let newConditions = [...state.conditions[action.conditionIdx], action.condition]
+      console.log(newConditions);
+      console.log(stateConditions[action.conditionIdx]);
+      stateConditions.splice(action.conditionIdx, 1, newConditions)
+      return {
+        ...state,
+        conditions: [...stateConditions]
+      }
+
+
 
   }
 

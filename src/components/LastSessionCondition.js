@@ -5,16 +5,16 @@ import MathOperators from './MathOperators'
 import ValueInput from './ValueInput'
 
 
-const LastSessionCondition = ({id}) => {
+const LastSessionCondition = ({id, conditionIdx}) => {
 
   return (
     <Container>
     <Row>
       <Col md={12}>
         <div className="d-flex justify-content-around mt-2">
-          <div style={{backgroundColor: 'rgba(0, 241, 3, 0.25)', color:'rgba(10, 10, 10, 0.71)', padding: '5px', borderRadius: '5px' }}>Last Session Date</div>
-          <MathOperators id={id} />
-          <ValueInput id={id}/>
+          <div className='text-center' style={{width:'140px',backgroundColor: 'rgba(0, 241, 3, 0.25)', color:'rgba(10, 10, 10, 0.71)', padding: '5px', borderRadius: '5px' }}>Last Session Date</div>
+          <MathOperators id={id} conditionIdx={conditionIdx} />
+          <ValueInput id={id} conditionIdx={conditionIdx}/>
         </div>
       </Col>
     </Row>

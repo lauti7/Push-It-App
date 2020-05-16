@@ -67,7 +67,7 @@ const MyApp = (props) => {
               <p>Monthly Active Userss</p>
             </CardHeader>
             <CardBody>
-              {isLoading ? <Spinner size="md" color="dark"/> :  <p>0</p>}
+              {isLoading ? <Spinner size="md" color="dark"/> :  <p>{app.monthlyActive}</p>}
             </CardBody>
           </Card>
         </Col>
