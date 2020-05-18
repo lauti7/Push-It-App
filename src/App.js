@@ -12,6 +12,7 @@ import Delivery from './components/Delivery'
 import DeliverySchedule from './components/DeliverySchedule'
 import Register from './components/Register'
 import AppSegments from './components/AppSegments'
+import AppSegment from './components/AppSegment'
 import NewSegment from './components/NewSegment'
 import AppSubscribers from './components/AppSubscribers'
 import Login from './components/Login'
@@ -126,8 +127,9 @@ const App = () => {
           <ProtectedRoute exact path='/apps/:_id/messages/new' component={NewMessage}/>
           <ProtectedRoute exact path='/apps/:_id/delivery/sent' component={Delivery}/>
           <ProtectedRoute exact path='/apps/:_id/delivery/schedule' component={DeliverySchedule}/>
-          <ProtectedRoute exact path='/apps/:_id/segments' component={AppSegments}/>
+          <ProtectedRoute exact path='/apps/:_id/segments/' component={AppSegments}/>
           <ProtectedRoute exact path='/apps/:_id/segments/new' component={NewSegment}/>
+          <ProtectedRoute exact path='/apps/:_id/segments/:segmentId' component={AppSegment}/>
           <ProtectedRoute exact path='/apps/:_id/subscribers' component={AppSubscribers}/>
 
 
