@@ -17,7 +17,7 @@ const AddAnOr = () => {
 
   return (
     <>
-      <Button className="align-self-center mt-2 ml-3" size="sm" onClick={() => handleAdd()}>OR</Button>
+      <Button disabled={state.conditions[state.orCount].length > 0 ? false : true} className="align-self-center mt-2 ml-3" size="sm" onClick={() => handleAdd()}>OR</Button>
     </>
   )
 }
