@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Container, Row, Col, Table, Button, Card, CardHeader, CardBody, ButtonGroup, Spinner, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Form, FormGroup, Input, Label} from 'reactstrap';
 import {useAuth} from '../auth'
+import moment from 'moment'
 
 
 
@@ -121,16 +122,13 @@ const DeliverySchedule = (props) => {
             (isLoading) ?
               <center><Spinner className="mt-3" size="md" color="dark" /></center>
             : (messages.length > 0) ?
-              <Table className="mt-2" style={{backgroundColor:'rgb(255, 255, 255)', borderRadius:'5px'}}>
+              <Table className="mt-2 text-center" style={{backgroundColor:'rgb(255, 255, 255)', borderRadius:'5px'}}>
                 <thead>
                   <tr>
                     <th>#</th>
                     <th>Message</th>
                     <th>Recipients</th>
-                    <th>Sent At</th>
-                    <th>Sent</th>
-                    <th>Clicked</th>
-                    <th>Actions</th>
+                    <th>Sending At</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,10 +138,7 @@ const DeliverySchedule = (props) => {
                           <th scope="row">{idx + 1}</th>
                           <td>{msg.message.title}</td>
                           <td>Status (recipients)</td>
-                          <td>{msg.sendAt}</td>
-                          <td>sent times</td>
-                          <td>clicks</td>
-                          <td>actions</td>
+                          <td>{moment(msg.sendAt).fromNow()}</td>
                         </tr>
                       )
                   }
