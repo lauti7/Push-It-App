@@ -11,7 +11,7 @@ const AppSegments = (props) => {
   const [segments, setSegments] = useState([])
 
   const fetchAppSegments = () => {
-    fetch(`http://localhost:8000/api/segments/${_id}`, {
+    fetch(`http://localhost:8000/api/segments/app/${_id}`, {
       headers: {
         'Authorization': state.token
       }
@@ -55,7 +55,7 @@ const AppSegments = (props) => {
                     return (
                       <ListGroupItem key={segment._id} className="d-flex justify-content-between">
                         <p style={{margin: 0, padding:0}}>{segment.name}</p>
-                        <p style={{margin: 0, padding:0}}>Subscribers Count: {segment.count ? segment.count : '0'}</p>
+                        <span><Button size="sm" style={{backgroundColor: '#00bf8c'}} onClick={() => props.history.push(`/apps/${_id}/segments/${segment._id}`)} >View</Button></span>
                       </ListGroupItem>
                     )
                   })
