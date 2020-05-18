@@ -129,7 +129,7 @@ const NewMessage = (props) => {
   }
 
   const fetchSegments = () => {
-    fetch(`http://localhost:8000/api/segments/${_id}`,{
+    fetch(`http://localhost:8000/api/segments/app/${_id}`,{
       headers: {
         'Authorization': state.token
       }
