@@ -1,21 +1,23 @@
 import React, {useReducer} from 'react';
 import {Switch, Route} from 'react-router-dom';
 import {AuthContext} from './auth'
-import ProtectedRoute from './components/ProtectedRoute.js'
-import MyApps from './components/MyApps'
-import MyApp from './components/MyApp'
+import ProtectedRoute from './components/containers/ProtectedRoute.js'
+import Apps from './components/applications/Apps'
+import AppDashboard from './components/applications/App'
 import Header from './components/Header'
-import NewApp from './components/NewApp'
-import NewMessage from './components/NewMessage'
-import Messages from './components/Messages'
-import Delivery from './components/Delivery'
-import DeliverySchedule from './components/DeliverySchedule'
-import Register from './components/Register'
-import AppSegments from './components/AppSegments'
-import AppSegment from './components/AppSegment'
-import NewSegment from './components/NewSegment'
-import AppSubscribers from './components/AppSubscribers'
-import Login from './components/Login'
+import NewApp from './components/applications/NewApp'
+import NewMessage from './components/messages/NewMessage'
+import Messages from './components/messages/Messages'
+import Message from './components/messages/Message'
+import Delivery from './components/messages/Delivery'
+import DeliverySchedule from './components/messages/DeliverySchedule'
+import Register from './components/auth/Register'
+import Segments from './components/segments/Segments'
+import Segment from './components/segments/Segment'
+import NewSegment from './components/segments/NewSegment'
+import AppSubscribers from './components/subscribers/AppSubscribers'
+import ClicksLog from './components/messages/stats/ClicksLog'
+import Login from './components/auth/Login'
 import logo from './logo.svg';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -120,16 +122,18 @@ const App = () => {
         <Switch>
           <Route exact path='/register' component={Register}/>
           <Route exact path='/login' component={Login}/>
-          <ProtectedRoute exact path='/' component={MyApps}/>
-          <ProtectedRoute exact path='/apps/:_id' component={MyApp}/>
+          <ProtectedRoute exact path='/' component={Apps}/>
+          <ProtectedRoute exact path='/apps/:_id' component={AppDashboard}/>
           <ProtectedRoute exact path='/newapp' component={NewApp}/>
           <ProtectedRoute exact path='/apps/:_id/messages' component={Messages}/>
           <ProtectedRoute exact path='/apps/:_id/messages/new' component={NewMessage}/>
+          <ProtectedRoute exact path='/apps/:_id/messages/:messageId' component={Message}/>
+          <ProtectedRoute exact path='/apps/:_id/messages/:messageId/clicks' component={ClicksLog}/>
           <ProtectedRoute exact path='/apps/:_id/delivery/sent' component={Delivery}/>
           <ProtectedRoute exact path='/apps/:_id/delivery/schedule' component={DeliverySchedule}/>
-          <ProtectedRoute exact path='/apps/:_id/segments/' component={AppSegments}/>
+          <ProtectedRoute exact path='/apps/:_id/segments/' component={Segments}/>
           <ProtectedRoute exact path='/apps/:_id/segments/new' component={NewSegment}/>
-          <ProtectedRoute exact path='/apps/:_id/segments/:segmentId' component={AppSegment}/>
+          <ProtectedRoute exact path='/apps/:_id/segments/:segmentId' component={Segment}/>
           <ProtectedRoute exact path='/apps/:_id/subscribers' component={AppSubscribers}/>
 
 
